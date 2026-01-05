@@ -4,6 +4,7 @@ from flask_restx import Api, Resource, fields
 from config import get_config_class, get_config_name
 from models import Recipe
 from exts import db
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 env_name = get_config_name()
@@ -11,6 +12,8 @@ config_class = get_config_class(env_name)
 app.config.from_object(config_class)
 
 db.init_app(app)
+
+migrate=Migrate(app,db)
 
 api = Api(app, doc="/docs")
 
